@@ -6,11 +6,6 @@
 sqlite3 Chinook.db
 ```
 
-### Database initieren
-```sh
-.read Chinook_Sqlite.sql
-```
-
 **Laat de tabellen zien**
 ```sh
 .tables
