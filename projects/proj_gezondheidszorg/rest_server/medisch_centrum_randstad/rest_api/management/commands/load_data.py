@@ -1,4 +1,4 @@
-from csv import DictReader
+import csv
 from django.core.management import BaseCommand
 from rest_api.models import Netlify
 from pytz import UTC
@@ -17,54 +17,54 @@ class Command(BaseCommand):
     # Show this when the user types help
     help = "Loads data from csv"
 
+    def validateValue(self, rowVal):
+        res = rowVal.replace('.','').isdecimal()
+        logging.debug(f"rowVal : {rowVal}")
+        logging.debug(res)
+        return res
 
     def loadFromCSV(self, csvFile):
         logging.info(f"Loading data from {csvFile}")
 
-        for count, row in enumerate(DictReader(open(csvFile))):
-
-            netlify = Netlify()
-
-            logging.debug(f"Import row {count}")
-
-            if any(row[key] in (None, "") for key in row):
-                logging.warning(f"Row {row} contains empty cell")
+        # Open file
+        with open(csvFile) as fileObj:
+        
+            # Create reader object by passing the file
+            # object to DictReader method
+            readerObj = csv.DictReader(fileObj)
             
-            if len(row['genetic']) > 0:
-                netlify.genetic = row['genetic']
+            # Iterate over each row in the csv file
+            # using reader object
+            for count, row in enumerate(readerObj):
 
-            if len(row['length']) > 0:
-                netlify.length = row['length']
-            
-            if len(row['mass']) > 0:
-                netlify.mass = row['mass']
+                logging.info(f"Import row {count}")
+                logging.debug(row)
 
-            if len(row['exercise']) > 0:
-                netlify.exercise = row['exercise']
+                if any(row[key] in (None, "") for key in row):
+                    logging.warning(f"Row {row} contains empty cell")
+                             
+                # Create new object
+                netlify = Netlify()
 
-            if len(row['smoking']) > 0:
-                netlify.smoking = row['smoking']
+                netlify.genetic = row['genetic'] if self.validateValue(row['genetic']) else None
+                netlify.length = row['length'] if self.validateValue(row['length']) else None
+                netlify.mass = row['mass'] if self.validateValue(row['mass']) else None
+                netlify.exercise = row['exercise'] if self.validateValue(row['exercise']) else None
+                netlify.smoking = row['smoking'] if self.validateValue(row['smoking']) else None
+                netlify.alcohol = row['alcohol'] if self.validateValue(row['alcohol']) else None
+                netlify.sugar = row['sugar'] if self.validateValue(row['sugar']) else None
+                netlify.lifespan = row['lifespan'] if self.validateValue(row['lifespan']) else None
 
-            if len(row['alcohol']) > 0:
-                netlify.alcohol = row['alcohol']
-
-            if len(row['sugar']) > 0:
-                netlify.sugar = row['sugar']
-
-            if len(row['lifespan']) > 0:
-                netlify.lifespan = row['lifespan']
-            
-            netlify.save()
-            
-
+                # Store object
+                netlify.save()
+                
     def handle(self, *args, **options):
 
         if Netlify.objects.exists():
             logging.warning('netlify data already loaded...exiting.')
             logging.warning(ALREADY_LOADED_ERROR_MESSAGE)
             
-            return
-
-        self.loadFromCSV('data/newdata.csv')
-        self.loadFromCSV('data/webscrapedata.csv')
+            return 
+        
+        self.loadFromCSV('data/data.csv')
                 

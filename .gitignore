@@ -15,7 +15,6 @@ log.txt
 scripts/shape/__pycache__
 projects/proj_3_gezondheidszorg/rest_server/medisch_centrum_randstad/medisch_centrum_randstad/__pycache__
 projects/proj_3_gezondheidszorg/rest_server/medisch_centrum_randstad/rest_api/__pycache__
-projects/proj_3_gezondheidszorg/rest_server/medisch_centrum_randstad/db.sqlite3
 projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/medisch_centrum_randstad/__pycache__/
 projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/rest_api/__pycache__/
 projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/rest_api/management/commands/__pycache__/
@@ -58,3 +57,9 @@ practica/week3/sql/csv/.ipynb_checkpoints/countries_europe-checkpoint.csv
 practica/week3/sql/csv/.ipynb_checkpoints/european_union-checkpoint.csv
 practica/week3/sql/db/europe.db
 practica/week2/notebooks/.ipynb_checkpoints/
+/Pipfile.lock
+/projects/proj_gezondheidszorg/rest_server/Pipfile.lock
+projects/proj_gezondheidszorg/.ipynb_checkpoints/data_collection-checkpoint.ipynb
+projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/data/
+projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/rest_api/migrations
+practica/week3/sql/notebook/.ipynb_checkpoints/sql-checkpoint.ipynb
