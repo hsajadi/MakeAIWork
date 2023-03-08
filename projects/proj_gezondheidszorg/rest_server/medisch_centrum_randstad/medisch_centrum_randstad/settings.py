@@ -83,7 +83,7 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'medisch_centrum_randstad.rest_api.pagination.CustomPageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_api.pagination.CustomPageNumberPagination',
     'PAGE_SIZE': 1
 }
 
