@@ -63,7 +63,7 @@ class Command(BaseCommand):
             logging.warning('netlify data already loaded...exiting.')
             logging.warning(ALREADY_LOADED_ERROR_MESSAGE)
             
-            return 
-        
-        self.loadFromCSV('data/data.csv')
-                
+            return
+
+        self.loadFromCSV('data/data.csv')          
+        self.loadFromCSV('data/webscrapedata.csv')      
