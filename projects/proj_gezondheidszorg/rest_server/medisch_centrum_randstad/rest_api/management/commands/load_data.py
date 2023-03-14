@@ -65,5 +65,4 @@ class Command(BaseCommand):
             
             return
 
-        self.loadFromCSV('data/data.csv')          
-        self.loadFromCSV('data/webscrapedata.csv')      
+        self.loadFromCSV('data/data.csv')
