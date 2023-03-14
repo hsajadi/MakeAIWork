@@ -28,17 +28,28 @@ logging.debug(dfCleanFromDB.head())
 
 # Transform
 dfSelection = dfCleanFromDB[['length', 'mass', 'lifespan']]
-length = dfSelection['length']
-mass = dfSelection['mass']
 logging.debug(dfSelection.head())
 
-# BMI = (Weight in Kilograms / (Height in Meters x Height in Meters))
-noemer = pow(length/100, 2)
-bmi = (mass / noemer) if (noemer > 0) else 0
-logging.debug(f"BMI : {bmi}")
+bmiList = list()
+
+# Maak tuples van naam en diameter
+lenghtMassList = list(zip(dfSelection["length"], dfSelection["mass"]))
+
+for (length, mass) in lenghtMassList:
+    # BMI = (Weight in Kilograms / (Height in Meters x Height in Meters))
+
+    # Voorkom delen door nul!
+    bmi = mass / pow(length/100, 2) if (length > 0) else None
+
+    bmiList.append(bmi)
+
+dfWithBMI = dfSelection.copy()
+nrOfCols = dfWithBMI.shape[1]
+dfWithBMI.insert(loc=nrOfCols, column='bmi', value=bmiList)
 
 # Save df as new table
-dfSelection.to_sql('bmi', con=dbConnection, if_exists='replace', index=False)
+dfWithBMI.to_sql('data_with_bmi', con=dbConnection,
+                 if_exists='replace', index=False)
 
 # close Connection
 dbConnection.close()
