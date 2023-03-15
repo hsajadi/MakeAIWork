@@ -1,7 +1,6 @@
 import csv
 from django.core.management import BaseCommand
 from rest_api.models import Netlify
-from pytz import UTC
 import logging
 
 ALREADY_LOADED_ERROR_MESSAGE = """
@@ -66,5 +65,4 @@ class Command(BaseCommand):
             
             return
 
-        self.loadFromCSV('data/data.csv')          
-        self.loadFromCSV('data/webscrapedata.csv')      
+        self.loadFromCSV('data/data.csv')

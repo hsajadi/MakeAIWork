@@ -1,4 +1,7 @@
 from rest_framework import pagination
+from rest_framework.response import Response
+from rest_framework import status
+
 
 class CustomPageNumberPagination(pagination.PageNumberPagination):
     """Custom page number pagination."""
@@ -17,12 +20,12 @@ class CustomPageNumberPagination(pagination.PageNumberPagination):
 
         if (self.page.has_next()):
             response.data['next'] = self.get_next_link()
-        
+
         if (self.page.has_previous()):
             response.data['previous'] = self.get_previous_link()
 
         response.data['data'] = data
 
-        # return response
+        return response
 
-        return super(CustomPageNumberPagination, self).get_page_size(request)
+        # return super(CustomPageNumberPagination, self).get_page_size(request)

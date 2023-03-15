@@ -2,9 +2,9 @@
 
 # Imports
 import logging
-import math
 import pandas as pd
 import sqlite3
+
 # Hardening
 from pathlib import Path
 
@@ -21,18 +21,35 @@ dbConnection = sqlite3.connect(dbName)
 dfFromDB = pd.read_sql_query(f"SELECT * FROM {tableName}", dbConnection)
 logging.debug(dfFromDB.head())
 
+# Cleaning
+logging.info("Preprocessing : remove rows with missing values")
+dfCleanFromDB = dfFromDB.dropna()
+logging.debug(dfCleanFromDB.head())
+
 # Transform
-dfSelection = dfFromDB[['length', 'mass', 'lifespan']]
-length = dfSelection['length']
-mass = dfSelection['mass']
+dfSelection = dfCleanFromDB[['length', 'mass', 'lifespan']]
 logging.debug(dfSelection.head())
 
-# BMI = (Weight in Kilograms / (Height in Meters x Height in Meters))
-bmi = mass / pow( (length/100), 2 )
-logging.debug(f"BMI : {bmi}")
+bmiList = list()
+
+# Maak tuples van naam en diameter
+lenghtMassList = list(zip(dfSelection["length"], dfSelection["mass"]))
+
+for (length, mass) in lenghtMassList:
+    # BMI = (Weight in Kilograms / (Height in Meters x Height in Meters))
+
+    # Voorkom delen door nul!
+    bmi = mass / pow(length/100, 2) if (length > 0) else None
+
+    bmiList.append(bmi)
+
+dfWithBMI = dfSelection.copy()
+nrOfCols = dfWithBMI.shape[1]
+dfWithBMI.insert(loc=nrOfCols, column='bmi', value=bmiList)
 
 # Save df as new table
-dfSelection.to_sql('bmi', con=dbConnection, if_exists='replace', index=False)
+dfWithBMI.to_sql('data_with_bmi', con=dbConnection,
+                 if_exists='replace', index=False)
 
 # close Connection
 dbConnection.close()
