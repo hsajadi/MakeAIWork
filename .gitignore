@@ -55,3 +55,5 @@ projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/data/
 projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/rest_api/migrations
 practica/week3/sql/notebook/.ipynb_checkpoints/sql-checkpoint.ipynb
 practica/week3/sql/notebook/.ipynb_checkpoints/sql_solutions-checkpoint.ipynb
+projects/proj_gezondheidszorg/models/knn.pkl
+projects/proj_gezondheidszorg/rest_server/medisch_centrum_randstad/db.sqlite3
