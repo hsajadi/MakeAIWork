@@ -9,7 +9,7 @@ import sqlite3
 from pathlib import Path
 
 # Global configuration
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 dbName = "../rest_server/medisch_centrum_randstad/db.sqlite3"
 tableName = "rest_api_netlify"
 

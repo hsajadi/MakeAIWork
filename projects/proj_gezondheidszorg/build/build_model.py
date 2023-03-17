@@ -11,7 +11,7 @@ from pathlib import Path
 from sklearn.neighbors import KNeighborsRegressor
 
 # Global configuration
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 exportFile = "../models/knn.pkl"
 
 dbName = "../rest_server/medisch_centrum_randstad/db.sqlite3"

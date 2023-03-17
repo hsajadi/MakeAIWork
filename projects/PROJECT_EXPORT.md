@@ -27,6 +27,15 @@ chmod +x convert_path.py && ./convert_path.py "relative\path\to\model"
 
 <li>
 
+Stel het niveau van logging in op INFO
+```python
+logging.basicConfig(level=logging.INFO)
+```
+
+</li>
+
+<li>
+
 **Verwijder tijdelijke bestanden en directories**
 
 <p>
