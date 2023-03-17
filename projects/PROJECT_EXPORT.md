@@ -1,12 +1,18 @@
-# Export van project
+# Project deliverables 
 
 <ol>
 
 <li>
 
-Paden aanpassen
+**Maak de relatieve Linux paden**
 
+<p>Je kunt gebruik maken van het script <i>convert_path.py</i>
+
+```sh
 chmod +x convert_path.py && ./convert_path.py "relative\path\to\model"
+```
+
+</p>
 
 <ul>
 
@@ -20,47 +26,55 @@ chmod +x convert_path.py && ./convert_path.py "relative\path\to\model"
 <br>
 
 <li>
-Pycache verwijderen
+
+**Verwijder tijdelijke bestanden en directories**
+
+<p>
+Verwijder pycache directories
 
 ```bash
-rm -r simulations/*/__pycache__
+rm -r build/__pycache__
+rm -r run/__pycache__
 ```
+
+</p>
+
+<p>
+Verwijder checkpoint bestanden
+
+```bash
+rm notebook/*-checkpoint.ipynb
+```
+</p>
+
 </li>
 
 <li> 
-Map p1 aanmaken en daarin alle code en data kopieren
 
-```bash
-mkdir p1 && cp -r simpylc p1/ && cp -r simulations p1/
-```
+**Maak zip-bestanden**
 
-Map p1 toevoegen en committen met git
-
-```bash
-git add p1 && git commit -m "Deliverable Periode 1"
-```
+<p>
+Maak een zip-bestand van de directoriees build, run en (indien van toepassing) sh
+</p>
 
 </li>
 
 <li>
 
-Git export van p1 maken
+**Upload zip-bestanden**
 
-```bash
-git archive -o "../{voornaam}_{achternaam}_p1.zip" HEAD:p1
-```
-
+<ul>
+<li>
+<p>
+Upload de bestanden <u>build.zip</u> en <u>run.zip</u> naar je eigen Teams kanaal -> Deliverables periode 1/Project/Broncode
+</p>
 </li>
 
 <li>
-
-Testen en uploaden
-
-<ol>
-
-<li>p1.zip op een adere locatie uitpakken en testen</li>
-
-<li>p1.zip uploaden naar eigen Teams kanaal -> Deliverables periode 1
+<p>
+Upload het bestand <u>notebooks.zip</u> naar je eigen Teams kanaal -> Deliverables periode 1/Project/Notebooks
+</p>
+</li>
 
 </li>
 
