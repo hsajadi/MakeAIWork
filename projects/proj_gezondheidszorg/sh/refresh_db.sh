@@ -9,8 +9,8 @@ function refreshDB {
     echo "Retrieve data from website"
     curl https://mc-randstad.netlify.app/data.csv | sed s/\;/,/g > "${projectName}/data/data.csv"
 
-    ./migrate.sh
+    (cd "../rest_server"; ./migrate.sh)
 
 }
 
-(cd "rest_server"; refreshDB)
+(cd../rest_server; refreshDB)
