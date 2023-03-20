@@ -1,12 +1,20 @@
-from dataclasses import dataclasses
+from dataclasses import dataclass, fields
 
-@dataclasses
+
+@dataclass
 class Planet:
     name: str
-    type: str
+    diameter: float
     mass: float
-    lengthOfDay: int
-    lengthOfYear: int
-    averageDistanceToStar: int
-    
-    
+    inclination: float
+    eccentricity: float
+    semiMajorAxis: float
+    surfaceGravity: float
+    orbitalPeriod: float
+    siderealRotation: float
+    satellites: int
+
+
+planetDict = {"name": "Mars", "satellites": 0}
+planet = Planet(planetDict.get('name'), planetDict.get('satellites1'))
+print(planet)

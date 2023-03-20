@@ -1,28 +1,31 @@
 #!/usr/bin/env python
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
-from rest_framework import status
 from .models import Netlify
 from .serializers import NetlifySerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
 import logging
 
 logging.basicConfig(level="DEBUG")
 
-class CustomPagination(PageNumberPagination):
+
+class CustomPageNumberPagination(PageNumberPagination):
 
     def get_paginated_response(self, data):
 
         response = Response(
             {
-                'status': status.HTTP_200_OK,        
+                'status': status.HTTP_200_OK,
                 'total_nr_of_records': self.page.paginator.count,
                 'nr_of_pages': self.page.paginator.num_pages,
                 'page_size': self.page_size,
             }
         )
-        
+
         if (self.page.has_next()):
             response.data['next'] = self.get_next_link()
 
@@ -33,21 +36,40 @@ class CustomPagination(PageNumberPagination):
 
         return response
 
+# class CustomPagination(PageNumberPagination):
 
-class NetlifyListApiView(APIView):
+#     def get_paginated_response(self, data):
+#         return Response({
+#             'links': {
+#                 'next': self.get_next_link(),
+#                 'previous': self.get_previous_link()
+#             },
+#             'count': self.page.paginator.count,
+#             'results': data
+#         })
+
+
+class NetlifyListApiView(ListAPIView):
+
+    # def get(self, request, format=None):
+    #     queryset = Netlify.objects.all()
+    #     serializer_class = NetlifySerializer
+    #     pagination_class = CustomPageNumberPagination
+
+    #     return pagination_class.get_paginated_response(self, queryset)
 
     def get(self, request, format=None):
         '''
         List all the netlify items
         '''
 
-        netlifyList = Netlify.objects.all()
-        results = netlifyList
-        serializer = NetlifySerializer(results, many=True)
+        serializer_class = NetlifySerializer
+        query_set = Netlify.objects.all()
+        # results = NetlifySerializer(queryse, many=True).data
+        return Response(query_set)
 
-        customPagination = CustomPagination()            
-        customPagination.paginate_queryset(serializer.data, request)
+    #     # return customPagination.get_paginated_response(customPagination.page)
 
-        return customPagination.get_paginated_response(serializer.data)
+    #     return CustomPageNumberPagination.get_paginated_response(serializer.data)
 
-        # return self.get_paginated_response(serializer.data)
+    #     # return self.get_paginated_response(serializer.data)

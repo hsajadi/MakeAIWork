@@ -28,9 +28,10 @@ function createVirtualEnv {
 
 function createCondaEnv {
     if (! command -v "conda" &> /dev/null ) then
-        createVirtualEnv miw
+        createVirtualEnv
     else
-        conda init zsh && conda activate miw    
+        conda create -n miw
+        conda deactivate && conda activate miw    
     fi
 
 }
