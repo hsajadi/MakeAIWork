@@ -31,7 +31,7 @@ from tkinter import filedialog
 
 # Global configuration
 logging.basicConfig(level=logging.INFO)
-dbName = '/home/hossein/MakeAIWork/projects/old data project 1/healthcare/db.sqlite3'
+dbName = '/home/hossein/MakeAIWork/projects/healthcare/db.sqlite3'
 tableName = 'rest_api_netlify'
 
 # Collecting the data
@@ -50,15 +50,15 @@ dfCleanFromDB2 = dfCleanFromDB.apply(pd.to_numeric, errors='coerce')
 dfCleanFromDB3 = dfCleanFromDB2[dfCleanFromDB.select_dtypes(include=[np.number]).ge(0).all(1)]
 
 logging.debug(dfCleanFromDB3.head())
-dfCleanFromDB3.to_csv('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/data_cleaned.csv', header=True, index=False)
+dfCleanFromDB3.to_csv('/home/hossein/MakeAIWork/projects/healthcare/data_cleaned.csv', header=True, index=False)
 
 
 # Adding BMI
-patient_DF = pd.read_csv('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/data_cleaned.csv')
+patient_DF = pd.read_csv('/home/hossein/MakeAIWork/projects/healthcare/data_cleaned.csv')
 patient_DF['BMI'] = (patient_DF['mass']/patient_DF['length']**2)*10000
 
 # Saving transformed DataFrame including BMI
-patient_DF.to_csv('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/medisch_centrum_randstad_BMI.csv', header=True, index=False)
+patient_DF.to_csv('/home/hossein/MakeAIWork/projects/healthcare/medisch_centrum_randstad_BMI.csv', header=True, index=False)
 # Storing DataFrame as Table inside .sql
 patient_DF.to_sql('medisch_centrum_randstad_BMI', dbConnection, if_exists='replace', index=False)
 
@@ -67,7 +67,7 @@ dbConnection.close()
 
 
 # Regression
-patient_DF2 = pd.read_csv('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/medisch_centrum_randstad_BMI.csv')
+patient_DF2 = pd.read_csv('/home/hossein/MakeAIWork/projects/healthcare/medisch_centrum_randstad_BMI.csv')
 X = patient_DF2[['genetic', 'exercise', 'smoking', 'alcohol', 'sugar', 'BMI']]
 y = patient_DF2['lifespan']
 
@@ -88,9 +88,9 @@ regInter = regr.intercept_
 
 
 # create an iterator object with write permission - model.pkl
-with open('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/model_pkl', 'wb') as files:
+with open('/home/hossein/MakeAIWork/projects/healthcare/model_pkl', 'wb') as files:
     pickle.dump(regr, files)
-with open('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/regModel', 'wb') as files:
+with open('/home/hossein/MakeAIWork/projects/healthcare/regModel', 'wb') as files:
     pickle.dump(regr, files)
 
 
@@ -126,7 +126,7 @@ def inputDigit(message, acceptableRange):
 
         i += 1
 
-with open('/home/hossein/MakeAIWork/projects/old data project 1/healthcare/regModel' , 'rb') as f:
+with open('/home/hossein/MakeAIWork/projects/healthcare/regModel' , 'rb') as f:
     lr = pickle.load(f)
 
 # Recall Coefficients
